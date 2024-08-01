@@ -7,7 +7,7 @@ async function checkPoints() {
         return;
     }
 
-    const sheetUrl = 'https://spreadsheets.google.com/feeds/list/2PACX-1vS4XoFVTNdzL9eZmwwPL9oqMQu3EhdxhXBc-SpN09IrDbcatxTrzbZ4P7VWIsuDt-FfDfhob7iOZoeI/od6/public/values?alt=json';
+    const sheetUrl = 'https://script.google.com/macros/s/AKfycbxdHxYmWuHM6-3NTLWQQbnJwbfMS2JZIVx7dTdtzcjWdu2rbv88XlpJr0w3C5M0nUGRZg/exec';
 
     try {
         const response = await fetch(sheetUrl);
