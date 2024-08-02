@@ -3,7 +3,7 @@ async function checkPoints() {
     const resultDiv = document.getElementById('result');
 
     if (!email) {
-        resultDiv.innerHTML = 'Please enter an email address.';
+        resultDiv.innerHTML = 'Please Enter Your ID.';
         return;
     }
 
