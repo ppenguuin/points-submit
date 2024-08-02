@@ -25,7 +25,7 @@ async function checkPoints() {
         for (let i = 1; i < data.length; i++) {
             const row = data[i];
             const emailFromSheet = row[1].toLowerCase().trim(); // Assuming email is in the second column
-            const points = parseInt(row[5], 10); // Assuming points are in the 3rd column
+            const points = parseInt(row[5], 10); // Assuming points are in the 5rd column
 
             if (emailFromSheet === email) {
                 cumulativePoints += points;
