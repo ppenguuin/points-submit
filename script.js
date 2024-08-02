@@ -1,5 +1,5 @@
 async function checkPoints() {
-    const email = document.getElementById('userEmail').value.toLowerCase();
+    const email = document.getElementById('userEmail').value.toLowerCase().trim();
     const resultDiv = document.getElementById('result');
 
     if (!email) {
@@ -7,34 +7,36 @@ async function checkPoints() {
         return;
     }
 
-    const sheetUrl = 'https://script.google.com/macros/s/AKfycbxdHxYmWuHM6-3NTLWQQbnJwbfMS2JZIVx7dTdtzcjWdu2rbv88XlpJr0w3C5M0nUGRZg/exec';
+    // URL to the published CSV data
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS4XoFVTNdzL9eZmwwPL9oqMQu3EhdxhXBc-SpN09IrDbcatxTrzbZ4P7VWIsuDt-FfDfhob7iOZoeI/pub?output=csv';
 
     try {
-        const response = await fetch(sheetUrl);
-        const data = await response.json();
+        const response = await fetch(csvUrl);
+        const csvText = await response.text();
+        
+        // Parse CSV text
+        const rows = csvText.split('\n');
+        const data = rows.map(row => row.split(','));
 
-        if (data && data.feed && data.feed.entry) {
-            const entries = data.feed.entry;
-            let cumulativePoints = 0;
-            let userFound = false;
+        let cumulativePoints = 0;
+        let userFound = false;
 
-            entries.forEach((entry) => {
-                const entryEmail = entry['gsx$email']['$t'].toLowerCase();
-                const entryPoints = parseInt(entry['gsx$points']['$t'], 10);
+        // Skip header row
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            const emailFromSheet = row[1].toLowerCase().trim(); // Assuming email is in the second column
+            const points = parseInt(row[2], 10); // Assuming points are in the 3rd column
 
-                if (entryEmail === email) {
-                    cumulativePoints += entryPoints;
-                    userFound = true;
-                }
-            });
-
-            if (userFound) {
-                resultDiv.innerHTML = `Your cumulative points: ${cumulativePoints}`;
-            } else {
-                resultDiv.innerHTML = 'Email not found.';
+            if (emailFromSheet === email) {
+                cumulativePoints += points;
+                userFound = true;
             }
+        }
+
+        if (userFound) {
+            resultDiv.innerHTML = `Your cumulative points: ${cumulativePoints}`;
         } else {
-            resultDiv.innerHTML = 'No data available.';
+            resultDiv.innerHTML = 'Email not found.';
         }
     } catch (error) {
         resultDiv.innerHTML = 'Error fetching data. Please try again later.';
