@@ -34,12 +34,12 @@ async function checkPoints() {
         }
 
         if (userFound) {
-            resultDiv.innerHTML = `Your cumulative points: ${cumulativePoints}`;
+            resultDiv.innerHTML = `Your Total Hours: ${cumulativePoints}`;
         } else {
-            resultDiv.innerHTML = 'Email not found.';
+            resultDiv.innerHTML = 'ID not found.';
         }
     } catch (error) {
-        resultDiv.innerHTML = 'Error fetching data. Please try again later.';
+        resultDiv.innerHTML = 'Error fetching data. Go yell at Kenny he probably did something wrong.';
         console.error('Error:', error);
     }
 }
