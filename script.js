@@ -8,7 +8,7 @@ async function checkPoints() {
     }
 
     // URL to the published CSV data
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS4XoFVTNdzL9eZmwwPL9oqMQu3EhdxhXBc-SpN09IrDbcatxTrzbZ4P7VWIsuDt-FfDfhob7iOZoeI/pub?output=csv';
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/1Aw5pzKysTo0Rtt_CoTQisJMlWPXhnSVkKYOVATWu7y8/export?format=csv';
 
     try {
         const response = await fetch(csvUrl);
